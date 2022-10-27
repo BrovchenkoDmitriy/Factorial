@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Factorial</string>
+    <string name="et_hint_text">Enter a number</string>
+    <string name="button_text">Calculate</string>
+</resources>
