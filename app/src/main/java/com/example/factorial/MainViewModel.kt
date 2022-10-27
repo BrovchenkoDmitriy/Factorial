@@ -32,7 +32,6 @@ class MainViewModel : ViewModel() {
             delay(1000)
             _progress.value = false
             _factorial.value = number.toString()
-
         }
 
     }
