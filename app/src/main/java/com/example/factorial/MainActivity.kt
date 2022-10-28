@@ -1,10 +1,9 @@
 package com.example.factorial
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.factorial.databinding.ActivityMainBinding
 
@@ -29,18 +28,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModel() {
         viewModel.state.observe(this) {
-            if (it.isInProgress) {
-                binding.loadingProgressBar.visibility = View.VISIBLE
-                binding.calculateButton.isEnabled = false
-            } else {
-                binding.loadingProgressBar.visibility = View.INVISIBLE
-                binding.calculateButton.isEnabled = true
+            binding.loadingProgressBar.visibility = View.INVISIBLE
+            binding.calculateButton.isEnabled = true
+            when (it) {
+                is Progress -> {
+                    binding.loadingProgressBar.visibility = View.VISIBLE
+                    binding.calculateButton.isEnabled = false
+                }
+                is Error -> {
+                    Toast.makeText(this, "You is not enter value", Toast.LENGTH_SHORT).show()
+                }
+                is Factorial -> {
+                    binding.factorial.text = it.factorial
+                }
             }
-
-            if (it.isError) {
-                Toast.makeText(this, "You is not enter value", Toast.LENGTH_SHORT).show()
-            }
-            binding.factorial.text = it.factorial
         }
     }
 }
